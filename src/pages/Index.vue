@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row items-start justify-center">
-      <div class="column q-gutter-y-sm col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
+      <div v-if="todos.length > 0" class="column q-gutter-y-sm col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
         <q-item-label header class="text-weight-bold text-h5">TODOS</q-item-label>
         <q-card class="todo-card" @click="() => $router.push({ path: '/todo/' + item.id })" v-for="(item, index) in todos" :key="index">
           <q-card-section horizontal>
@@ -14,7 +14,15 @@
           </q-card-section>
         </q-card>
       </div>
+
+      <div v-else class="column q-gutter-y-sm col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
+        <q-item-label header class="text-weight-bold text-h5">TODOS</q-item-label>
+        <q-card class="todo-card" v-for="item in 8" :key="item">
+          <q-skeleton height="50px"></q-skeleton>
+        </q-card>
+      </div>
     </div>
+
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn fab icon="edit" color="primary" @click="() => $router.push({ path: '/todo/00000000-0000-0000-0000-000000000000' })" />
     </q-page-sticky>
