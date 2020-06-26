@@ -11,7 +11,6 @@ module.exports = function (/* ctx */) {
   return {
     supportTS: false,
     boot: [
-
       'i18n',
       'axios'
     ],
@@ -81,7 +80,10 @@ module.exports = function (/* ctx */) {
       importStrategy: 'auto',
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Dialog',
+        'Notify'
+      ]
     },
 
     // animations: 'all', // --- includes all animations

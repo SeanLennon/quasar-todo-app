@@ -9,15 +9,9 @@ const routes = [
   },
 
   {
-    path: '/',
-    component: () => import('layouts/BackLayout.vue'),
-    children: [
-      {
-        path: '/todo/:id',
-        component: () => import('pages/Todo.vue'),
-        props: true
-      }
-    ]
+    path: '/todo/:id',
+    component: () => import('pages/Todo.vue'),
+    props: true
   },
 
   // Always leave this as last one,

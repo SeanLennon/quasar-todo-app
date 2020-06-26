@@ -13,7 +13,7 @@
         />
         <q-space />
         <div>
-          <q-btn flat icon="search" color="primary" dense round @click="$q.dark.toggle()"></q-btn>
+          <q-btn flat icon="brightness_medium" color="primary" dense round @click="$q.dark.toggle()"></q-btn>
         </div>
       </q-toolbar>
     </q-header>
@@ -37,6 +37,15 @@
 
             <q-item-section>
               <q-item-label>Todo</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable to="/todos/users">
+            <q-item-section avatar>
+              <q-icon name="note" />
+            </q-item-section>
+
+            <q-item-section>
+              <q-item-label>Todos of friends</q-item-label>
             </q-item-section>
           </q-item>
       </q-list>
