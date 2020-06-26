@@ -77,7 +77,7 @@
       <q-page padding>
         <div class="row items-start justify-center">
           <div class="column q-gutter-y-sm col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
-            <q-input autofocus placeholder="Your todo name" type="textarea" autogrow borderless input-class="text-grey-8 q-px-md q-mb-md text-weight-bold text-h6 row overflow-hidden" v-model="todo.name">
+            <q-input placeholder="Your todo name" type="textarea" autogrow borderless input-class="text-grey-8 q-px-md q-mb-md text-weight-bold text-h6 row overflow-hidden" v-model="todo.name">
               <div class="self-center q-pr-md q-mb-md">
                 <q-btn flat round dense icon="check"
                   :color="allDone()"
