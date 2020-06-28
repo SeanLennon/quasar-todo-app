@@ -94,7 +94,7 @@
                   <q-btn flat rounded icon="delete" label="Apagar" @click="handlerDeleteItem(item)" />
                 </template>
                 <template v-slot:right>
-                  <q-btn flat rounded icon="delete" @click="handlerDeleteItem(item)" />
+                  <q-btn flat rounded icon-right="delete" label="Apagar" @click="handlerDeleteItem(item)" />
                 </template>
                   <q-item class="rounded-borders">
                     <q-item-section avatar class="self-start">

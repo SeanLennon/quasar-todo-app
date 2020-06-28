@@ -30,7 +30,7 @@
         </q-card>
       </div>
 
-      <div v-else class="column q-gutter-y-sm col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
+      <div v-else class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
         <q-item-label header class="text-weight-bold text-h5">TODOS</q-item-label>
         <q-card class="todo-card" v-for="item in 8" :key="item">
           <q-skeleton height="50px"></q-skeleton>
