@@ -3,7 +3,7 @@ import { Notify } from 'quasar'
 
 const ApiUrlBase = process.env.DEV ? 'https://localhost:5001' : 'https://api-todo-app.herokuapp.com'
 
-const http = Axios.create({
+const client = Axios.create({
   baseURL: ApiUrlBase,
   headers: {
     'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const http = Axios.create({
 
 const PostAsync = async (todo) => {
   try {
-    const { status } = await http({
+    const { status } = await client({
       url: '/todos',
       method: 'POST',
       data: todo
@@ -43,7 +43,7 @@ const PostAsync = async (todo) => {
 
 const UpdateAsync = async (todo) => {
   try {
-    const { status } = await http({
+    const { status } = await client({
       url: '/todos',
       method: 'PUT',
       data: todo
@@ -75,7 +75,7 @@ const UpdateAsync = async (todo) => {
 
 const DeleteAsync = async (id) => {
   try {
-    const { status } = await http({
+    const { status } = await client({
       url: '/todos/' + id,
       method: 'DELETE'
     })
@@ -105,7 +105,7 @@ const DeleteAsync = async (id) => {
 
 const GetAllAsync = async () => {
   try {
-    const { status, data } = await http({
+    const { status, data } = await client({
       url: '/todos',
       method: 'GET'
     })
@@ -121,7 +121,7 @@ const GetAllAsync = async () => {
 
 const GetByIdAsync = async (id) => {
   try {
-    const { status, data } = await http({
+    const { status, data } = await client({
       url: '/todos/' + id,
       method: 'GET'
     })
