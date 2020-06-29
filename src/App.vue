@@ -18,4 +18,8 @@ export default {
 .todo-card {
   border-left: 5px solid $primary;
 }
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 </style>

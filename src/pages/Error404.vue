@@ -1,16 +1,18 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
-    <div>
-      <div style="font-size: 30vh">
+  <div class="fullscreen text-white text-center q-pa-md column items-center justify-center q-gutter-y-lg">
+    <div class="row items-center">
+      <div class="text-h2">
         404
       </div>
-
-      <div class="text-h2" style="opacity:.4">
+      <q-separator spaced inset vertical dark />
+      <div class="text-h6" style="opacity:.4">
         Oops. Nothing here...
       </div>
 
+    </div>
+
+    <div>
       <q-btn
-        class="q-mt-xl"
         color="white"
         text-color="blue"
         unelevated

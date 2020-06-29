@@ -1,136 +1,136 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header :class="$q.dark.mode ? 'my-black' : 'bg-white'">
-      <q-toolbar>
-        <q-btn flat round dense icon="arrow_back" color="primary" @click="$router.back()"
-          v-if="$q.platform.is.mobile || $router.name === '/'"
-        />
-        <q-btn v-else flat dense round
-          color="primary"
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawer = !leftDrawer"
-        />
-        <q-space />
-        <div class="row q-gutter-x-xs">
-          <q-btn color="primary" dense flat rounded label="Salvar" class="q-px-sm"
-            @click="handlerUpdate" v-if="todo.id"
+    <q-layout view="lHh Lpr lFf">
+      <q-header :class="$q.dark.mode ? 'my-black' : 'bg-white'">
+        <q-toolbar>
+          <q-btn flat round dense icon="arrow_back" color="primary" @click="$router.back()"
+            v-if="$q.platform.is.mobile || $router.name === '/'"
           />
-          <q-btn color="primary" dense flat rounded label="Salvar" class="q-px-sm"
-            @click="handlerSave" v-else
+          <q-btn v-else flat dense round
+            color="primary"
+            icon="menu"
+            aria-label="Menu"
+            @click="leftDrawer = !leftDrawer"
           />
-          <q-btn icon="person" flat dense round color="primary" />
-          <q-btn color="negative" icon="delete" flat round dense
-            @click.prevent="handlerDelete(id)"
-          />
-          <q-btn color="primary" icon="more_vert" flat round dense />
-        </div>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer
-      v-model="leftDrawer"
-      show-if-above
-      :content-class="$q.dark.mode ? 'bg-dark' : 'bg-grey-3'"
-    >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-          <q-item clickable to="/todo/1">
-            <q-item-section avatar>
-              <q-icon name="note" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Todo</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable to="/todos/users">
-            <q-item-section avatar>
-              <q-icon name="note" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Todos of friends</q-item-label>
-            </q-item-section>
-          </q-item>
-      </q-list>
-    </q-drawer>
-
-    <q-footer elevated class="q-pa-sm bg-black">
-      <q-input dense v-model="name" type="textarea" autogrow borderless input-class="bg-dark q-px-sm rounded-borders text-white overflow-hidden row items-end"
-        @keyup.enter.stop="handlerInsertItem(name)"
-      >
-        <template v-slot:append>
-          <q-btn icon="send" dense round flat color="primary"
-            @click.prevent="handlerInsertItem(name)"
-          />
-        </template>
-      </q-input>
-    </q-footer>
-
-    <q-page-container>
-      <q-page padding>
-        <div class="row items-start justify-center">
-          <div class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
-            <q-input placeholder="Your todo name" type="textarea" autogrow borderless input-class="text-grey-8 q-px-md q-mb-md text-weight-bold text-h6 row overflow-hidden" v-model="todo.name">
-              <div class="self-center q-pr-md q-mb-md">
-                <q-btn flat round dense icon="check"
-                  :color="allDone()"
-                  @click="handlerChangeAllDone()"
-                ></q-btn>
-              </div>
-            </q-input>
-
-            <q-card class="todo-card rounded-borders" v-for="(item, index) in todo.items" :key="index" v-show="!item.toDelete">
-              <q-slide-item @left="onLeft" @right="onRight" left-color="red" right-color="red" class="rounded-borders"
-                v-if="$q.platform.is.mobile"
-              >
-                <template v-slot:left>
-                  <q-btn flat rounded icon="delete" label="Apagar" @click="handlerDeleteItem(item)" />
-                </template>
-                <template v-slot:right>
-                  <q-btn flat rounded icon-right="delete" label="Apagar" @click="handlerDeleteItem(item)" />
-                </template>
-                  <q-item class="rounded-borders">
-                    <q-item-section avatar class="self-start">
-                      <q-checkbox v-model="item.done" />
-                    </q-item-section>
-                    <q-item-section :class="{ 'text-strike text-grey': item.done }" @click.prevent="item.done = !item.done">
-                      {{ item.name }}
-                    </q-item-section>
-                    <q-item-section side class="self-start">
-                      <q-card-section horizontal>
-                        <q-btn color="primary" flat round icon="edit" @click="handlerEditItem(item)" />
-                      </q-card-section>
-                    </q-item-section>
-                  </q-item>
-              </q-slide-item>
-
-              <q-item v-else class="rounded-borders">
-                <q-item-section avatar class="self-start">
-                  <q-checkbox v-model="item.done" />
-                </q-item-section>
-                <q-item-section :class="{ 'text-strike text-grey': item.done }" @click.prevent="item.done = !item.done">
-                  {{ item.name }}
-                </q-item-section>
-                <q-item-section side class="self-start">
-                  <q-card-section horizontal>
-                    <q-btn color="primary" flat round icon="edit" @click="handlerEditItem(item)" />
-                    <q-btn color="negative" flat round icon="delete" @click="handlerDeleteItem(item)" />
-                  </q-card-section>
-                </q-item-section>
-              </q-item>
-            </q-card>
+          <q-space />
+          <div class="row q-gutter-x-xs">
+            <q-btn color="primary" dense flat rounded no-caps label="Salvar" class="q-px-sm"
+              @click="handlerUpdate" v-if="todo.id"
+            />
+            <q-btn color="primary" dense flat rounded no-caps label="Salvar" class="q-px-sm"
+              @click="handlerSave" v-else
+            />
+            <q-btn icon="person" flat dense round color="primary" />
+            <q-btn color="negative" icon="delete" flat round dense
+              @click.prevent="handlerDelete(id)"
+            />
+            <q-btn color="primary" icon="more_vert" flat round dense />
           </div>
-        </div>
-      </q-page>
-    </q-page-container>
-  </q-layout>
+        </q-toolbar>
+      </q-header>
+
+      <q-drawer
+        v-model="leftDrawer"
+        show-if-above
+        :content-class="$q.dark.mode ? 'bg-dark' : 'bg-grey-3'"
+      >
+        <q-list>
+          <q-item-label
+            header
+            class="text-grey-8"
+          >
+            Essential Links
+          </q-item-label>
+            <q-item clickable to="/todo/1">
+              <q-item-section avatar>
+                <q-icon name="note" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>Todo</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item clickable to="/todos/users">
+              <q-item-section avatar>
+                <q-icon name="note" />
+              </q-item-section>
+
+              <q-item-section>
+                <q-item-label>Todos of friends</q-item-label>
+              </q-item-section>
+            </q-item>
+        </q-list>
+      </q-drawer>
+
+      <q-footer class="q-pa-sm bg-black">
+        <q-input dense v-model="name" type="textarea" autogrow borderless input-class="bg-dark q-px-sm rounded-borders text-white overflow-hidden row items-end"
+          @keyup.enter.prevent="handlerInsertItem(name)"
+        >
+          <template v-slot:append>
+            <q-btn icon="send" dense round flat color="primary"
+              @click.prevent="handlerInsertItem(name)"
+            />
+          </template>
+        </q-input>
+      </q-footer>
+
+      <q-page-container>
+        <q-page padding>
+          <div class="row items-start justify-center">
+            <div class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
+              <q-input placeholder="Your todo name" type="textarea" autogrow borderless input-class="text-grey-8 q-px-md q-mb-md text-weight-bold text-h6 row overflow-hidden" v-model="todo.name">
+                <div class="self-center q-pr-md q-mb-md">
+                  <q-btn flat round dense icon="check"
+                    :color="allDone()"
+                    @click="handlerChangeAllDone()"
+                  ></q-btn>
+                </div>
+              </q-input>
+
+              <q-card class="todo-card rounded-borders" v-for="(item, index) in todo.items" :key="index" v-show="!item.toDelete">
+                <q-slide-item @left="onLeft" @right="onRight" left-color="red" right-color="red" class="rounded-borders"
+                  v-if="$q.platform.is.mobile"
+                >
+                  <template v-slot:left>
+                    <q-btn flat rounded icon="delete" label="Apagar" @click="handlerDeleteItem(item)" />
+                  </template>
+                  <template v-slot:right>
+                    <q-btn flat rounded icon-right="delete" label="Apagar" @click="handlerDeleteItem(item)" />
+                  </template>
+                    <q-item class="rounded-borders">
+                      <q-item-section avatar class="self-start">
+                        <q-checkbox v-model="item.done" />
+                      </q-item-section>
+                      <q-item-section :class="{ 'text-strike text-grey': item.done }" @click.prevent="item.done = !item.done">
+                        {{ item.name }}
+                      </q-item-section>
+                      <q-item-section side class="self-start">
+                        <q-card-section horizontal>
+                          <q-btn color="primary" flat round icon="edit" @click="handlerEditItem(item)" />
+                        </q-card-section>
+                      </q-item-section>
+                    </q-item>
+                </q-slide-item>
+
+                <q-item v-else class="rounded-borders">
+                  <q-item-section avatar class="self-start">
+                    <q-checkbox v-model="item.done" />
+                  </q-item-section>
+                  <q-item-section :class="{ 'text-strike text-grey': item.done }" @click.prevent="item.done = !item.done">
+                    {{ item.name }}
+                  </q-item-section>
+                  <q-item-section side class="self-start">
+                    <q-card-section horizontal>
+                      <q-btn color="primary" flat round icon="edit" @click="handlerEditItem(item)" />
+                      <q-btn color="negative" flat round icon="delete" @click="handlerDeleteItem(item)" />
+                    </q-card-section>
+                  </q-item-section>
+                </q-item>
+              </q-card>
+            </div>
+          </div>
+        </q-page>
+      </q-page-container>
+    </q-layout>
 </template>
 
 <script>
