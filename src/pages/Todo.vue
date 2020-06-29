@@ -248,7 +248,7 @@ export default {
     finalize (reset) {
       this.timer = setTimeout(() => {
         reset()
-      }, 2000)
+      }, 1000)
     }
   },
 
