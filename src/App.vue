@@ -16,7 +16,7 @@ export default {
 
 <style lang="stylus">
 .todo-card {
-  border-left: 5px solid $primary;
+  border-left: 5px solid #5F5CCE;
 }
 #app {
   -webkit-font-smoothing: antialiased;
