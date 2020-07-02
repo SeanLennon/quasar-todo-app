@@ -24,14 +24,16 @@
       :content-class="$q.dark.mode ? 'bg-dark' : 'bg-grey-3'"
     >
       <q-list>
-        <div class="row justify-between q-pr-sm">
+        <div class="row justify-between q-pr-sm items-center">
           <q-item-label
             header
             class="text-grey-8"
           >
             Essential Links
           </q-item-label>
-          <q-btn flat icon="brightness_medium" color="primary" dense round @click="$q.dark.toggle()"></q-btn>
+          <div>
+            <q-btn flat icon="brightness_medium" color="primary" dense round @click="$q.dark.toggle()" />
+          </div>
         </div>
           <q-item clickable to="/todo/1">
             <q-item-section avatar>

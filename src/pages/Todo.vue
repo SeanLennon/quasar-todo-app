@@ -34,12 +34,17 @@
         :content-class="$q.dark.mode ? 'bg-dark' : 'bg-grey-3'"
       >
         <q-list>
-          <q-item-label
-            header
-            class="text-grey-8"
-          >
-            Essential Links
-          </q-item-label>
+          <div class="row justify-between q-pr-sm items-center">
+            <q-item-label
+              header
+              class="text-grey-8"
+            >
+              Essential Links
+            </q-item-label>
+            <div>
+              <q-btn flat icon="brightness_medium" color="primary" dense round @click="$q.dark.toggle()" />
+            </div>
+          </div>
             <q-item clickable to="/todo/1">
               <q-item-section avatar>
                 <q-icon name="note" />
@@ -63,7 +68,7 @@
 
       <q-footer class="q-pa-sm bg-black">
         <q-input dense v-model="name" type="textarea" autogrow borderless input-class="bg-dark q-px-sm rounded-borders text-white overflow-hidden row items-end"
-          @keyup.enter.prevent="handlerInsertItem(name)"
+          @keypress.enter.prevent="handlerInsertItem(name)"
         >
           <template v-slot:append>
             <q-btn icon="send" dense round flat color="primary"
@@ -135,7 +140,12 @@
 
 <script>
 import Textarea from '../components/Todos/Textarea.vue'
-import { PostAsync, UpdateAsync, GetByIdAsync, DeleteAsync } from '../controllers/TodoController'
+
+// eslint-disable-next-line no-unused-vars
+import { InsertLocalAsync, GetTodoLocalByIdAsync, RemoveTodoAsync, UpdateTodoAsync } from '../services/TodoService'
+
+// eslint-disable-next-line no-unused-vars
+import { GetByIdAsync, CreateAsync } from '../controllers/TodoController'
 
 export default {
   props: {
@@ -156,8 +166,9 @@ export default {
 
   methods: {
     async getTodoApi () {
-      const data = await GetByIdAsync(this.id)
-      this.todo = data
+      // const data = await GetByIdAsync(this.id)
+      this.todo = await GetByIdAsync(this.id)
+      // this.todo = LocalService.GetTodoById(this.id)
     },
 
     async handlerInsertItem (name) {
@@ -191,31 +202,26 @@ export default {
 
     async handlerSave () {
       if (this.todo.name === '' || this.todo.name === null || this.todo.name === 'undefined') return
-      const status = await PostAsync(this.todo)
-      if (status === 200) {
-        this.$router.push({ path: '/' })
-      }
+      await InsertLocalAsync(this.todo)
+      this.$router.push({ path: '/' })
     },
 
     async handlerUpdate () {
-      const status = await UpdateAsync(this.todo)
-      if (status === 200) {
-        this.$router.push({ path: '/' })
-      }
+      await UpdateTodoAsync(this.todo)
+      this.$router.push({ path: '/' })
     },
 
     async handlerDelete (id) {
       this.$q.dialog({
         dark: this.$q.dark.mode,
-        title: 'Delete ' + this.todo.name,
+        title: this.todo.name,
+        ok: 'Apagar',
         message: 'Deseja realmente apagar essa lista?',
-        color: 'primary',
-        cancel: true
+        color: 'primar',
+        cancel: 'Cancelar'
       }).onOk(async () => {
-        const status = await DeleteAsync(id)
-        if (status === 200) {
-          this.$router.push({ path: '/' })
-        } else {}
+        await RemoveTodoAsync(id)
+        this.$router.push({ path: '/' })
       })
     },
 

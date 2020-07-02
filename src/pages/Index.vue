@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row items-start justify-center">
-      <div v-if="todos.length > 0" class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
+      <div class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
         <q-item-label header class="text-weight-bold text-h5">TODOS</q-item-label>
         <q-card class="todo-card" v-for="(item, index) in todos" :key="index"
           @click="() => $router.push({ path: '/todo/' + item.id })"
@@ -17,12 +17,12 @@
         </q-card>
       </div>
 
-      <div v-else class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
+      <!-- <div v-else class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
         <q-item-label header class="text-weight-bold text-h5">TODOS</q-item-label>
         <q-card class="todo-card" v-for="item in 8" :key="item">
           <q-skeleton height="50px"></q-skeleton>
         </q-card>
-      </div>
+      </div> -->
     </div>
 
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
@@ -32,7 +32,10 @@
 </template>
 
 <script>
-import { GetAllAsync, DeleteAsync } from '../controllers/TodoController'
+
+// eslint-disable-next-line no-unused-vars
+import { DeleteAsync, GetAllAsync } from '../controllers/TodoController'
+// import LocalService from '../services/LocalService'
 
 export default {
   name: 'PageIndex',
@@ -44,9 +47,10 @@ export default {
   },
 
   methods: {
-    async getTodosApi () {
-      const data = await GetAllAsync()
-      this.todos.push(...data)
+    async getTodos () {
+      // const todos = await GetAllAsync()
+      const todos = await GetAllAsync()
+      this.todos.push(...todos)
     },
 
     async handlerDeleteTodoAsync (item) {
@@ -69,7 +73,7 @@ export default {
   },
 
   created () {
-    this.getTodosApi()
+    this.getTodos()
   },
 
   beforeDestroy () {

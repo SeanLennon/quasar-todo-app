@@ -6,7 +6,7 @@
       </div>
       <q-separator spaced inset vertical dark />
       <div class="text-h6" style="opacity:.4">
-        Oops. Nothing here...
+        Error
       </div>
 
     </div>
