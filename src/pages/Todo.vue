@@ -66,30 +66,38 @@
         </q-list>
       </q-drawer>
 
-      <q-footer class="q-pa-sm bg-black">
-        <q-input dense v-model="name" type="textarea" autogrow borderless input-class="bg-dark q-px-sm rounded-borders text-white overflow-hidden row items-end"
-          @keypress.enter.prevent="handlerInsertItem(name)"
-        >
-          <template v-slot:append>
+      <q-footer class="q-pa-sm" :class="$q.dark.mode ? 'bg-dark' : 'bg-grey-4'">
+        <div class="row q-gutter-x-sm justify-between items-center">
+          <q-input placeholder="Digite um nome..." dense :dark="false" class="col" borderless :bg-color="$q.dark.mode ? 'grey-10' : 'grey-2'"
+            :input-class="$q.dark.mode ? 'rounded-borders text-white q-px-sm overflow-hidden' : 'rounded-borders text-dark text-weight-medium q-px-sm overflow-hidden'" type="textarea" autogrow
+            v-model="name"
+            @keypress.enter.prevent="handlerInsertItem(name)"
+          />
+          <div class="self-end q-mb-xs">
             <q-btn icon="send" dense round flat color="primary"
               @click.prevent="handlerInsertItem(name)"
             />
-          </template>
-        </q-input>
+          </div>
+        </div>
       </q-footer>
 
       <q-page-container>
         <q-page padding>
           <div class="row items-start justify-center">
             <div class="column q-gutter-y-md col-xs-12 col-sm-10 col-md-8 col-lg-6 col-xl-6">
-              <q-input placeholder="Your todo name" type="textarea" autogrow borderless input-class="text-grey-8 q-px-md q-mb-md text-weight-bold text-h6 row overflow-hidden" v-model="todo.name">
-                <div class="self-center q-pr-md q-mb-md">
+              <q-item class="q-pb-none">
+                <q-item-section>
+                  <q-input placeholder="Digite um nome..." borderless type="textarea" autogrow v-model="todo.name"
+                    input-class="text-grey-8 text-weight-bold text-h5 row overflow-hidden"
+                  />
+                </q-item-section>
+                <q-item-section side class="self-start q-mt-sm">
                   <q-btn flat round dense icon="check"
                     :color="allDone()"
                     @click="handlerChangeAllDone()"
-                  ></q-btn>
-                </div>
-              </q-input>
+                  />
+                </q-item-section>
+              </q-item>
 
               <q-card class="todo-card rounded-borders" v-for="(item, index) in todo.items" :key="index" v-show="!item.toDelete">
                 <q-slide-item @left="onLeft" @right="onRight" left-color="red" right-color="red" class="rounded-borders"
@@ -201,7 +209,14 @@ export default {
     },
 
     async handlerSave () {
-      if (this.todo.name === '' || this.todo.name === null || this.todo.name === 'undefined') return
+      if (this.todo.name === '' || this.todo.name === null || this.todo.name === 'undefined') {
+        this.$q.notify({
+          message: 'Dê um nome para sua lista',
+          color: 'negative',
+          position: 'top'
+        })
+        return
+      }
       await InsertLocalAsync(this.todo)
       this.$router.push({ path: '/' })
     },
@@ -240,7 +255,8 @@ export default {
     },
 
     allDone () {
-      return this.todo.items?.filter(x => x.done).length === this.todo.items?.length ? 'primary' : 'grey'
+      if (this.todo.items?.length === 0) return 'grey'
+      else return this.todo.items?.filter(x => x.done).length === this.todo.items?.length ? 'primary' : 'grey'
     },
 
     onLeft ({ reset }) {
