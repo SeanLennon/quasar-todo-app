@@ -213,7 +213,8 @@ export default {
         this.$q.notify({
           message: 'Dê um nome para sua lista',
           color: 'negative',
-          position: 'top'
+          position: 'top',
+          timeout: 700
         })
         return
       }
